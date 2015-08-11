@@ -1,0 +1,26 @@
+{
+    "name": "smart-crowd/centrifuge-broadcaster",
+    "description": "Centrifuge and centrifugo broadcaster for laravel 5.1",
+    "keywords": ["laravel", "centrifuge", "centrifugo", "broadcaster"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paul Klementev",
+            "email": "klermonte@yandex.ru"
+        }
+    ],
+    "require": {
+        "illuminate/broadcasting": "5.1.*",
+        "illuminate/container": "5.1.*",
+        "predis/predis": "^1.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0",
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SmartCrowd\\Centrifuge\\": "src/Centrifuge/"
+        }
+    }
+}
