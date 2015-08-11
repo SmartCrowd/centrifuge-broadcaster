@@ -10,22 +10,28 @@ use Illuminate\Support\Facades\Auth;
 class CentrifugeManager
 {
     /**
+     * @var int Last used timestamp
+     */
+    protected $timestamp;
+
+    /**
      * Generates connection settings for centrifuge client
      *
      * @return array
      */
-    public function getConnectionSettings()
+    public function getConnection()
     {
-        $timestamp = time();
+        $this->timestamp = time();
+
         $userId    = Auth::check() ? Auth::user()->id : '';
-        $config    = config('broadcasting.centrifuge');
+        $config    = config('broadcasting.connections.centrifuge');
 
         return [
             'url'       => $config['url'],
             'project'   => $config['project'],
             'user'      => (string) $userId,
-            'timestamp' => (string) $timestamp,
-            'token'     => $this->generateToken($userId, $timestamp, $config)
+            'timestamp' => (string) $this->timestamp,
+            'token'     => $this->generateToken($userId, $this->timestamp, $config)
         ];
     }
 
@@ -35,7 +41,7 @@ class CentrifugeManager
      * @param array $config Centrifuge broadcaster config
      * @return string
      */
-    protected function generateToken($userId, $timestamp, $config)
+    public function generateToken($userId, $timestamp, $config)
     {
         $ctx = hash_init('sha256', HASH_HMAC, $config['projectSecret']);
         hash_update($ctx, $config['project']);
@@ -43,5 +49,13 @@ class CentrifugeManager
         hash_update($ctx, $timestamp);
 
         return hash_final($ctx);
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
     }
 }
