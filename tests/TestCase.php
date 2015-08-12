@@ -24,11 +24,12 @@ class TestCase extends BaseTestCase
     {
         $app['config']->set('broadcasting.default', 'centrifuge');
         $app['config']->set('broadcasting.connections.centrifuge', [
-            'driver'        => 'centrifuge',
-            'connection'    => 'default',
-            'project'       => 'test',
-            'url'           => 'http://127.0.0.1:8000',
-            'projectSecret' => 'f27d79a1-821f-4e3f-47b2-7cb308768c77'
+            'driver'          => 'centrifuge',
+            'transport'       => 'redis', // or http
+            'redisConnection' => 'default',
+            'project'         => 'test',
+            'url'             => 'http://127.0.0.1:8000',
+            'projectSecret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77'
         ]);
     }
 }

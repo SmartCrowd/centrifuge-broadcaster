@@ -5,6 +5,7 @@ namespace SmartCrowd\Centrifuge;
 use Illuminate\Broadcasting\BroadcastManager;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Arr;
+use GuzzleHttp\Client;
 
 
 /**
@@ -21,11 +22,26 @@ class CentrifugeServiceProvider extends ServiceProvider
     public function boot(BroadcastManager $broadcastManager)
     {
         $broadcastManager->extend('centrifuge', function ($app, $config) {
-            return new CentrifugeBroadcaster(
-                $this->app->make('redis'),
-                Arr::get($config, 'connection'),
-                Arr::get($config, 'project')
-            );
+
+            if ($config['transport'] == 'redis') {
+
+                $connection = $app->make('redis')->connection($config['redisConnection']);
+
+                return new CentrifugeRedisBroadcaster(
+                    $connection,
+                    $config['project']
+                );
+
+            } else {
+
+                $client = new Client([
+                    'base_uri' => rtrim($config['baseUrl'], '/') . '/api/' . $config['project'] . '/'
+                ]);
+
+                return new CentrifugeHttpBroadcaster($client);
+
+            }
+
         });
     }
 

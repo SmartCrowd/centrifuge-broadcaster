@@ -12,7 +12,8 @@
     "require": {
         "illuminate/broadcasting": "5.1.*",
         "illuminate/container": "5.1.*",
-        "predis/predis": "^1.0"
+        "predis/predis": "^1.0",
+        "guzzlehttp/guzzle": "6.*"
     },
     "require-dev": {
         "orchestra/testbench": "~3.0",
