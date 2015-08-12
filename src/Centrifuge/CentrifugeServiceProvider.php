@@ -35,7 +35,7 @@ class CentrifugeServiceProvider extends ServiceProvider
             } else {
 
                 $client = new Client([
-                    'base_uri' => rtrim($config['baseUrl'], '/') . '/api/' . $config['project'] . '/'
+                    'base_uri' => rtrim($config['baseUrl'], '/') . '/api/' . $config['project']
                 ]);
 
                 return new CentrifugeHttpBroadcaster($client);
