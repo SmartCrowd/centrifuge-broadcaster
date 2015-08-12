@@ -21,7 +21,7 @@ class CentrifugeHttpBroadcaster extends CentrifugeBaseBroadcaster
         $commandsJson = json_encode($commands);
         $postFields = [
             'data' => $commandsJson,
-            'sign' => app('centrifuge')->generateApiSign($commandsJson)
+            'sign' => app('centrifugeManager')->generateApiSign($commandsJson)
         ];
 
         $this->client->post('', [
