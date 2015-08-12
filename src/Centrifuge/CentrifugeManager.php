@@ -45,6 +45,8 @@ class CentrifugeManager
     }
 
     /**
+     * Generates client connection token
+     *
      * @param int|string $userId current user id, or empty string if no one logged in
      * @param int $timestamp
      * @return string
@@ -59,6 +61,12 @@ class CentrifugeManager
         return hash_final($ctx);
     }
 
+    /**
+     * Generates sign for server http api method calls
+     *
+     * @param $encodedData
+     * @return string
+     */
     public function generateApiSign($encodedData)
     {
         $ctx = hash_init('sha256', HASH_HMAC, $this->config['projectSecret']);
