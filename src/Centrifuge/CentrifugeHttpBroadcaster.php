@@ -11,7 +11,7 @@ class CentrifugeHttpBroadcaster extends CentrifugeBaseBroadcaster
      */
     protected $client;
 
-    public function __constructor(Client $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }
