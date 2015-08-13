@@ -16,6 +16,12 @@ class CentrifugeHttpBroadcaster extends CentrifugeBaseBroadcaster
         $this->client = $client;
     }
 
+    /**
+     * Sends commands by sanding http post request to
+     * centrifuge server
+     *
+     * @param array $commands
+     */
     protected function sendCommands($commands)
     {
         $commandsJson = json_encode($commands);

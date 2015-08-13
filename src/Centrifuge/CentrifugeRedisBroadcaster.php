@@ -39,6 +39,11 @@ class CentrifugeRedisBroadcaster extends CentrifugeBaseBroadcaster
         $this->server = $server;
     }
 
+    /**
+     * Sends commands by pushing into redis list
+     *
+     * @param array $commands
+     */
     protected function sendCommands($commands)
     {
         $centrifugeData = [
