@@ -41,7 +41,9 @@ You should just fire broadcastable event. See http://laravel.com/docs/5.1/events
 ## Connect from client
 Use oficial centrifuge client library https://github.com/centrifugal/centrifuge-js. In your view:
 ```html
+<script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
 <script src="https://rawgit.com/centrifugal/centrifuge-js/master/centrifuge.js"></script>
+
 <script>
     var centrifuge = new Centrifuge({!! json_encode(Centrifuge::getConnection($isSockJS = true)) !!});
 
