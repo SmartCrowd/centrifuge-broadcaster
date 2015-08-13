@@ -27,16 +27,17 @@ class CentrifugeManager
     /**
      * Generates connection settings for centrifuge client
      *
+     * @param bool $isSockJS
      * @return array
      */
-    public function getConnection()
+    public function getConnection($isSockJS = false)
     {
         $this->timestamp = time();
 
-        $userId    = Auth::check() ? Auth::user()->id : '';
+        $userId = Auth::check() ? Auth::user()->id : '';
 
         return [
-            'url'       => $this->config['baseUrl'],
+            'url'       => rtrim($this->config['baseUrl'], '/') . ($isSockJS ? '/connection' : ''),
             'project'   => $this->config['project'],
             'user'      => (string) $userId,
             'timestamp' => (string) $this->timestamp,
