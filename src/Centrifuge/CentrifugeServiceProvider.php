@@ -30,7 +30,7 @@ class CentrifugeServiceProvider extends ServiceProvider
                 return new CentrifugeRedisBroadcaster(
                     $connection,
                     $config['project'],
-                    Arr::get($config, 'project', 'centrifuge')
+                    Arr::get($config, 'server', 'centrifuge')
                 );
 
             } else {
