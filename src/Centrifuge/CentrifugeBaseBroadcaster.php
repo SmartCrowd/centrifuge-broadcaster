@@ -16,18 +16,28 @@ abstract class CentrifugeBaseBroadcaster implements Broadcaster
      */
     public function broadcast(array $channels, $event, array $payload = [])
     {
+        $clientParam = [];
+        
+        if (isset($payload['centrifugeClientId'])) {
+            $clientParam['client'] = $payload['centrifugeClientId'];
+            $payload = array_except($payload, 'centrifugeClientId');
+        }
+    
         $payload = ['event' => $event, 'data' => $payload];
 
         $commands = [];
 
         foreach ($channels as $channel) {
-            $commands[] = [
-                'method' => 'publish',
-                'params' => [
-                    'channel' => $channel,
-                    'data' => $payload
-                ]
-            ];
+            $commands[] = array_merge(
+                [
+                    'method' => 'publish',
+                    'params' => [
+                        'channel' => $channel,
+                        'data' => $payload
+                    ]
+                ],
+                $clientParam
+            );
         }
 
         $this->sendCommands($commands);
