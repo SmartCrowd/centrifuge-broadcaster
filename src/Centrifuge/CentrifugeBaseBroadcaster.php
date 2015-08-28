@@ -44,16 +44,13 @@ abstract class CentrifugeBaseBroadcaster implements Broadcaster
         $commands = [];
 
         foreach ($channels as $channel) {
-            $commands[] = array_merge(
-                [
-                    'method' => 'publish',
-                    'params' => [
-                        'channel' => $channel,
-                        'data' => $payload
-                    ]
-                ],
-                $topLevelFields
-            );
+            $commands[] = [
+                'method' => 'publish',
+                'params' => array_merge([
+                    'channel' => $channel,
+                    'data' => $payload
+                ], $topLevelFields)
+            ];
         }
 
         $this->sendCommands($commands);
