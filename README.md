@@ -15,7 +15,15 @@ Centrifuge and centrifugo broadcaster for laravel 5.1
             'redisConnection' => 'default', // for redis transport only
             'project'         => 'myProject',
             'baseUrl'         => 'http://myapp.exapmle:8000',
-            'projectSecret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77'
+            'projectSecret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
+            'topLevelFields'  => [
+                /**
+                 * to implement
+                 * http://fzambia.gitbooks.io/centrifugal/content/mixed/exclude_sender.html
+                 * you should pass in payload `centClientId` field
+                 */
+                'centClientId' => 'client',
+            ],
         ]
     ]
 ```

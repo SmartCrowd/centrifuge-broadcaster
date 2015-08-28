@@ -7,6 +7,24 @@ use Illuminate\Contracts\Broadcasting\Broadcaster;
 abstract class CentrifugeBaseBroadcaster implements Broadcaster
 {
     /**
+     * Fields from payload that should be on top level of centrifuge message
+     *
+     * key - payload search key,
+     * value - top level field key
+     *
+     * @var array
+     */
+    protected $topLevelFields = [];
+
+    /**
+     * @param array $topLevelFields
+     */
+    public function setTopLevelFields(array $topLevelFields)
+    {
+        $this->topLevelFields = $topLevelFields;
+    }
+
+    /**
      * Broadcast the given event.
      *
      * @param  array  $channels
@@ -16,11 +34,9 @@ abstract class CentrifugeBaseBroadcaster implements Broadcaster
      */
     public function broadcast(array $channels, $event, array $payload = [])
     {
-        $clientParam = [];
-        
-        if (isset($payload['centrifugeClientId'])) {
-            $clientParam['client'] = $payload['centrifugeClientId'];
-            $payload = array_except($payload, 'centrifugeClientId');
+        $topLevelFields = [];
+        foreach ($this->topLevelFields as $search => $key) {
+            $topLevelFields[$key] = array_pull($payload, $search);
         }
     
         $payload = ['event' => $event, 'data' => $payload];
@@ -36,7 +52,7 @@ abstract class CentrifugeBaseBroadcaster implements Broadcaster
                         'data' => $payload
                     ]
                 ],
-                $clientParam
+                $topLevelFields
             );
         }
 

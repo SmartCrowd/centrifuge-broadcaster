@@ -15,7 +15,15 @@ Centrifuge и centrifugo бродкастер для laravel 5.1
             'redisConnection' => 'default', // только для транспорта redis
             'project'         => 'myProject',
             'baseUrl'         => 'http://myapp.exapmle:8000',
-            'projectSecret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77'
+            'projectSecret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
+            'topLevelFields'  => [
+                /**
+                 * Чтобы реализовать проверку на отправителя сообщения во фронтенде
+                 * http://fzambia.gitbooks.io/centrifugal/content/mixed/exclude_sender.html
+                 * вам необходимо передавать в бродкастер поле centClientId
+                 */
+                'centClientId' => 'client',
+            ],
         ]
     ]
 ```

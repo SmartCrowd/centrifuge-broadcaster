@@ -27,10 +27,10 @@ class CentrifugeServiceProvider extends ServiceProvider
 
                 $connection = $app->make('redis')->connection($config['redisConnection']);
 
-                return new CentrifugeRedisBroadcaster(
+                $broadcaster = new CentrifugeRedisBroadcaster(
                     $connection,
                     $config['project'],
-                    Arr::get($config, 'project', 'centrifuge')
+                    Arr::get($config, 'server', 'centrifuge')
                 );
 
             } else {
@@ -39,9 +39,13 @@ class CentrifugeServiceProvider extends ServiceProvider
                     'base_uri' => rtrim($config['baseUrl'], '/') . '/api/' . $config['project']
                 ]);
 
-                return new CentrifugeHttpBroadcaster($client);
+                $broadcaster = new CentrifugeHttpBroadcaster($client);
 
             }
+
+            $broadcaster->setTopLevelFields(Arr::get($config, 'topLevelFields', []));
+
+            return $broadcaster;
 
         });
     }
