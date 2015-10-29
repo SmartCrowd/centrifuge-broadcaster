@@ -27,11 +27,7 @@ class CentrifugeServiceProvider extends ServiceProvider
 
                 $connection = $app->make('redis')->connection($config['redisConnection']);
 
-                $broadcaster = new CentrifugeRedisBroadcaster(
-                    $connection,
-                    $config['project'],
-                    'centrifugo' //Arr::get($config, 'server', 'centrifuge')
-                );
+                $broadcaster = new CentrifugeRedisBroadcaster($connection);
 
             } else {
 
