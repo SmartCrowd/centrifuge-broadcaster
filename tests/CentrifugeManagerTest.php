@@ -13,8 +13,8 @@ class CentrifugeManagerTest extends TestCase
     public function testGenerateTokenWithInfo()
     {
         $info = json_encode(['info' => true]);
-        $generatedToken = CentrifugeFacade::generateToken(2, 1446135665);
-        $this->assertSame('7edaa49ca4aec56590e66649cb6e1e180741b6c1dcd5fd49d5efc3115a1ed858', $generatedToken);
+        $generatedToken = CentrifugeFacade::generateToken(2, 1446135665, $info);
+        $this->assertSame('833ec1c64ceafb7060a7c38d46afb143ec5bc38506e198baf1c19f04190f10da', $generatedToken);
     }
 
     public function testGetConnection()

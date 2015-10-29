@@ -29,7 +29,7 @@ class TestCase extends BaseTestCase
             'server'          => 'centrifugo', // or centrifuge
             'redisConnection' => 'default',
             'baseUrl'         => 'http://127.0.0.1:8000',
-            'secret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
+            'secret'          => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
             'topLevelFields'  => [
                 'centClientId' => 'clientId',
             ]
