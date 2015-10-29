@@ -30,13 +30,13 @@ class CentrifugeServiceProvider extends ServiceProvider
                 $broadcaster = new CentrifugeRedisBroadcaster(
                     $connection,
                     $config['project'],
-                    Arr::get($config, 'server', 'centrifuge')
+                    'centrifugo' //Arr::get($config, 'server', 'centrifuge')
                 );
 
             } else {
 
                 $client = new Client([
-                    'base_uri' => rtrim($config['baseUrl'], '/') . '/api/' . $config['project']
+                    'base_uri' => rtrim($config['baseUrl'], '/') . '/api/'
                 ]);
 
                 $broadcaster = new CentrifugeHttpBroadcaster($client);

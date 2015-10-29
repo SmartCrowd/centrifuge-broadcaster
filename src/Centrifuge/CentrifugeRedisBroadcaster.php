@@ -47,7 +47,6 @@ class CentrifugeRedisBroadcaster extends CentrifugeBaseBroadcaster
     protected function sendCommands($commands)
     {
         $centrifugeData = [
-            'project' => $this->project,
             'data' => $commands
         ];
 

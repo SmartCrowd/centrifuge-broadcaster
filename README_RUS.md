@@ -1,5 +1,9 @@
 # centrifuge-broadcaster
-Centrifuge и centrifugo бродкастер для laravel 5.1
+Centrifugo бродкастер для laravel 5.1
+
+Centrifuge не поддерживается на данный момент из за измененних внесеных при [обновлении Centrifugo до 1.0](https://github.com/centrifugal/centrifugo/releases/tag/v1.0.0) была нарушена обратная совместимость.
+
+Если вы не можете перейти на Centrifugo, используйте версию пакета [0.3.1](https://github.com/SmartCrowd/centrifuge-broadcaster/tree/V0.3.1)
 
 ## Установка
 1. `composer require smart-crowd/centrifuge-broadcaster`
@@ -10,12 +14,10 @@ Centrifuge и centrifugo бродкастер для laravel 5.1
         ...
         'centrifuge' => [
             'driver'          => 'centrifuge',
-            'server'          => 'centrifugo', // или centrifuge
             'transport'       => 'http', // или redis
             'redisConnection' => 'default', // только для транспорта redis
-            'project'         => 'myProject',
             'baseUrl'         => 'http://myapp.exapmle:8000',
-            'projectSecret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
+            'secret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
             'topLevelFields'  => [
                 /**
                  * Чтобы реализовать проверку на отправителя сообщения во фронтенде
@@ -51,7 +53,7 @@ http://fzambia.gitbooks.io/centrifugal/content/index.html
 ## Подключение во фронтенде
 Используйте для этого официальную клиентскую js библитеку https://github.com/centrifugal/centrifuge-js:
 ```html
-<script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/sockjs/1.0/sockjs.min.js"></script>
 <script src="https://rawgit.com/centrifugal/centrifuge-js/master/centrifuge.js"></script>
 
 <script>
