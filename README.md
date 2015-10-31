@@ -1,9 +1,9 @@
 # centrifuge-broadcaster
 Centrifuge and centrifugo broadcaster for laravel 5.1
 
-Centrifuge is not supported at this time because changes made during the upgrade Centrifugo to 1.0 broken backward compatibility.
+Centrifuge is not supported at this time because changes made during the [upgrade Centrifugo to 1.0](https://github.com/centrifugal/centrifugo/releases/tag/v1.0.0) broken backward compatibility.
 
-If you can not go to Centrifugo, use the package version 0.3.1 
+If you can not go to Centrifugo, use the package version [0.3.1](https://github.com/SmartCrowd/centrifuge-broadcaster/tree/V0.3.1)
 
 ## Installation
 1. `composer require smart-crowd/centrifuge-broadcaster`
