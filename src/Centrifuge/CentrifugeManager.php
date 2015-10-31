@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class CentrifugeManager
 {
     /**
-     * @var int Last used timestamp
+     * @var string Last used timestamp
      */
     protected $timestamp;
 
@@ -33,18 +33,19 @@ class CentrifugeManager
      */
     public function getConnection($isSockJS = false, $options = [])
     {
-        $this->timestamp = time();
+        $this->timestamp = (string) time();
 
-        $userId = Auth::check() ? Auth::user()->id : '';
+        $userId = Auth::check() ? (string) Auth::user()->id : '';
+
+        $info = array_key_exists('info', $options) ? $options['info'] : '';
 
         return array_merge(
             $options,
             [
                 'url'       => rtrim($this->config['baseUrl'], '/') . ($isSockJS ? '/connection' : ''),
-                'project'   => $this->config['project'],
-                'user'      => (string) $userId,
-                'timestamp' => (string) $this->timestamp,
-                'token'     => $this->generateToken($userId, $this->timestamp)
+                'user'      => $userId,
+                'timestamp' => $this->timestamp,
+                'token'     => $this->generateToken($userId, $this->timestamp, $info),
             ]
         );
     }
@@ -52,16 +53,17 @@ class CentrifugeManager
     /**
      * Generates client connection token
      *
-     * @param int|string $userId current user id, or empty string if no one logged in
-     * @param int $timestamp
+     * @param string $userId current user id, or empty string if no one logged in
+     * @param string $timestamp
+     * @param string $info
      * @return string
      */
-    public function generateToken($userId, $timestamp)
+    public function generateToken($userId, $timestamp, $info = '')
     {
-        $ctx = hash_init('sha256', HASH_HMAC, $this->config['projectSecret']);
-        hash_update($ctx, $this->config['project']);
+        $ctx = hash_init('sha256', HASH_HMAC, $this->config['secret']);
         hash_update($ctx, $userId);
         hash_update($ctx, $timestamp);
+        hash_update($ctx, $info);
 
         return hash_final($ctx);
     }
@@ -74,15 +76,14 @@ class CentrifugeManager
      */
     public function generateApiSign($encodedData)
     {
-        $ctx = hash_init('sha256', HASH_HMAC, $this->config['projectSecret']);
-        hash_update($ctx, $this->config['project']);
+        $ctx = hash_init('sha256', HASH_HMAC, $this->config['secret']);
         hash_update($ctx, $encodedData);
 
         return hash_final($ctx);
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getTimestamp()
     {
