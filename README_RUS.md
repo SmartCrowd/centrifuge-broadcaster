@@ -17,7 +17,7 @@ Centrifuge не поддерживается на данный момент из
             'transport'       => 'http', // или redis
             'redisConnection' => 'default', // только для транспорта redis
             'baseUrl'         => 'http://myapp.exapmle:8000',
-            'secret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
+            'secret'          => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
             'topLevelFields'  => [
                 /**
                  * Чтобы реализовать проверку на отправителя сообщения во фронтенде

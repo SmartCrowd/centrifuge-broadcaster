@@ -17,7 +17,7 @@ If you can not go to Centrifugo, use the package version 0.3.1
             'transport'       => 'http', // or redis
             'redisConnection' => 'default', // for redis transport only
             'baseUrl'         => 'http://myapp.exapmle:8000',
-            'secret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
+            'secret'          => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
             'topLevelFields'  => [
                 /**
                  * to implement
