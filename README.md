@@ -1,6 +1,10 @@
 # centrifuge-broadcaster
 Centrifuge and centrifugo broadcaster for laravel 5.1
 
+Centrifuge is not supported at this time because changes made during the [upgrade Centrifugo to 1.0](https://github.com/centrifugal/centrifugo/releases/tag/v1.0.0) broken backward compatibility.
+
+If you can not go to Centrifugo, use the package version [0.3.1](https://github.com/SmartCrowd/centrifuge-broadcaster/tree/V0.3.1)
+
 ## Installation
 1. `composer require smart-crowd/centrifuge-broadcaster`
 2. In `config/broadcasting`:
@@ -10,12 +14,10 @@ Centrifuge and centrifugo broadcaster for laravel 5.1
         ...
         'centrifuge' => [
             'driver'          => 'centrifuge',
-            'server'          => 'centrifugo', // or centrifuge
             'transport'       => 'http', // or redis
             'redisConnection' => 'default', // for redis transport only
-            'project'         => 'myProject',
             'baseUrl'         => 'http://myapp.exapmle:8000',
-            'projectSecret'   => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
+            'secret'          => 'f27d79a1-821f-4e3f-47b2-7cb308768c77',
             'topLevelFields'  => [
                 /**
                  * to implement
@@ -49,7 +51,7 @@ You should just fire broadcastable event. See http://laravel.com/docs/5.1/events
 ## Connect from client
 Use oficial centrifuge client library https://github.com/centrifugal/centrifuge-js. In your view:
 ```html
-<script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/sockjs/1.0/sockjs.min.js"></script>
 <script src="https://rawgit.com/centrifugal/centrifuge-js/master/centrifuge.js"></script>
 
 <script>
